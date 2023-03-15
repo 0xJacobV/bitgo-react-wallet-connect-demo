@@ -5,6 +5,7 @@ import RequestMethodCard from '@/components/RequestMethodCard'
 import RequestModalContainer from '@/components/RequestModalContainer'
 import ModalStore from '@/store/ModalStore'
 import { approveEIP155Request, rejectEIP155Request } from '@/utils/EIP155RequestHandlerUtil'
+// import { approveEIP155Request, rejectEIP155Request } from '../utils/BitGoEIP155RequestHandlerUtils';
 import { legacySignClient } from '@/utils/LegacyWalletConnectUtil'
 import { Button, Divider, Loading, Modal, Text } from '@nextui-org/react'
 import { Fragment, useState } from 'react'

@@ -33,7 +33,9 @@ cp .env.local.example .env.local
 Your `.env.local` now contains the following environment variables:
 
 - `NEXT_PUBLIC_PROJECT_ID` (placeholder) - You can generate your own ProjectId at https://cloud.walletconnect.com
-- `NEXT_PUBLIC_RELAY_URL` (already set)
+- `NEXT_PUBLIC_WALLET_ID` (placeholder) - the BitGo walletId of the wallet you want to use 
+- `NEXT_PUBLIC_WALLET_PASSPHRASE` (placeholder) - the wallet passphrase associated with the BitGo wallet
+
 
 5. Run `yarn dev` or `npm run dev` to start local development
 

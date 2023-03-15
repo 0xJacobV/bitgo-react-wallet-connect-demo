@@ -3,7 +3,8 @@ import RequesDetailsCard from '@/components/RequestDetalilsCard'
 import RequestMethodCard from '@/components/RequestMethodCard'
 import RequestModalContainer from '@/components/RequestModalContainer'
 import ModalStore from '@/store/ModalStore'
-import { approveEIP155Request, rejectEIP155Request } from '@/utils/EIP155RequestHandlerUtil'
+// import { approveEIP155Request, rejectEIP155Request } from '@/utils/EIP155RequestHandlerUtil'
+import { approveEIP155Request, rejectEIP155Request } from '../utils/BitGoEIP155RequestHandlerUtils';
 import { getSignParamsMessage } from '@/utils/HelperUtil'
 import { web3wallet } from '@/utils/WalletConnectUtil'
 import { Button, Col, Divider, Modal, Row, Text } from '@nextui-org/react'
@@ -28,12 +29,22 @@ export default function SessionSignModal() {
 
   // Handle approve action (logic varies based on request method)
   async function onApprove() {
+    console.log('approved')
     if (requestEvent) {
-      const response = await approveEIP155Request(requestEvent)
-      await web3wallet.respondSessionRequest({
-        topic,
-        response
-      })
+      console.log('requestEvent: ', requestEvent)
+      try {
+        const response = await approveEIP155Request(requestEvent)
+        console.log('response: ', response);
+        await web3wallet.respondSessionRequest({
+          topic,
+          response
+        })
+
+      } catch (e) {
+        console.log(e)
+      }
+
+
       ModalStore.close()
     }
   }

@@ -2,13 +2,17 @@
   "name": "react-wallet-eip155",
   "private": true,
   "scripts": {
-    "dev": "next dev -p 3001",
+    "dev": "next dev -p 3001 & node server.cjs",
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
     "prettier:write": "prettier --write '**/*.{js,ts,jsx,tsx}'"
   },
   "dependencies": {
+    "@bitgo-beta/sdk-api": "beta",
+    "@bitgo-beta/sdk-coin-eth": "beta",
+    "@bitgo-beta/sdk-core": "beta",
+    "@bitgo-beta/sdk-rpc-wrapper": "beta",
     "@json-rpc-tools/utils": "1.7.6",
     "@nextui-org/react": "1.0.0-beta.12",
     "@walletconnect/client": "1.8.0",
@@ -16,12 +20,21 @@
     "@walletconnect/legacy-types": "2.0.0",
     "@walletconnect/utils": "2.4.3",
     "@walletconnect/web3wallet": "1.2.0",
+    "bitgo": "^18.0.1",
+    "cors": "^2.8.5",
+    "dotenv": "^16.0.3",
+    "ethers": "5.7.2",
+    "express": "^4.18.2",
     "framer-motion": "9.0.2",
-    "next": "13.1.6",
+    "http-proxy-middleware": "^2.0.6",
+    "http2": "^3.3.7",
+    "net": "^1.0.2",
+    "next": "^13.2.4",
     "react": "18.2.0",
     "react-code-blocks": "0.0.9-0",
     "react-dom": "18.2.0",
     "react-qr-reader-es6": "2.2.1-2",
+    "tls": "^0.0.1",
     "valtio": "1.10.2"
   },
   "devDependencies": {
@@ -33,5 +46,7 @@
     "eslint-config-prettier": "8.6.0",
     "prettier": "2.8.4",
     "typescript": "4.9.5"
-  }
+  },
+  "type": "module",
+  "proxy": "https://app.bitgo-test.com"
 }

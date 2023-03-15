@@ -19,6 +19,7 @@ export default function WalletConnectPage() {
       if (version === 1) {
         createLegacySignClient({ uri })
       } else {
+        console.log('about to pair');
         await web3wallet.pair({ uri })
       }
     } catch (err: unknown) {
