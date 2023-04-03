@@ -11,24 +11,22 @@ interface Props {
 export default function ChainCard({ rgb, children, flexDirection, alignItems }: Props) {
   return (
     <Card
+      bordered="true"
+      borderWeight="light"
       css={{
         borderColor: `rgba(${rgb}, 0.4)`,
         boxShadow: `0 0 10px 0 rgba(${rgb}, 0.15)`,
         backgroundColor: `rgba(${rgb}, 0.25)`,
-        marginBottom: '$6'
+        marginBottom: '$6',
+        minHeight: '70px'
       }}
-      variant="bordered"
     >
       <Card.Body
         css={{
           flexDirection,
           alignItems,
           justifyContent: 'space-between',
-          overflow: 'hidden',
-          paddingTop: 10,
-          paddingBottom: 10,
-          paddingLeft: 20,
-          paddingRight: 20
+          overflow: 'hidden'
         }}
       >
         {children}

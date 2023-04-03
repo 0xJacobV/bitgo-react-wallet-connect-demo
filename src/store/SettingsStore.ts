@@ -7,7 +7,7 @@ interface State {
   testNets: boolean
   account: number
   eip155Address: string
-  web3WalletReady: boolean
+  relayerRegionURL: string
 }
 
 /**
@@ -17,7 +17,7 @@ const state = proxy<State>({
   testNets: typeof localStorage !== 'undefined' ? Boolean(localStorage.getItem('TEST_NETS')) : true,
   account: 0,
   eip155Address: '',
-  web3WalletReady: false
+  relayerRegionURL: ''
 })
 
 /**
@@ -41,10 +41,6 @@ const SettingsStore = {
     } else {
       localStorage.removeItem('TEST_NETS')
     }
-  },
-
-  setWeb3WalletReady(value: boolean) {
-    state.web3WalletReady = value
   }
 }
 

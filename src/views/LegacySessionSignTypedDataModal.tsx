@@ -81,10 +81,10 @@ export default function LegacySessionSignTypedDataModal() {
       </RequestModalContainer>
 
       <Modal.Footer>
-        <Button auto flat color="error" onPress={onReject}>
+        <Button auto flat color="error" onClick={onReject}>
           Reject
         </Button>
-        <Button auto flat color="success" onPress={onApprove}>
+        <Button auto flat color="success" onClick={onApprove}>
           Approve
         </Button>
       </Modal.Footer>

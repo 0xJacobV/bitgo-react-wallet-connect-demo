@@ -6,7 +6,7 @@ import RequestModalContainer from '@/components/RequestModalContainer'
 import ModalStore from '@/store/ModalStore'
 import { approveEIP155Request, rejectEIP155Request } from '@/utils/EIP155RequestHandlerUtil'
 import { getSignTypedDataParamsData } from '@/utils/HelperUtil'
-import { web3wallet } from '@/utils/WalletConnectUtil'
+import { signClient } from '@/utils/WalletConnectUtil'
 import { Button, Divider, Modal, Text } from '@nextui-org/react'
 import { Fragment } from 'react'
 
@@ -31,7 +31,7 @@ export default function SessionSignTypedDataModal() {
   async function onApprove() {
     if (requestEvent) {
       const response = await approveEIP155Request(requestEvent)
-      await web3wallet.respondSessionRequest({
+      await signClient.respond({
         topic,
         response
       })
@@ -43,7 +43,7 @@ export default function SessionSignTypedDataModal() {
   async function onReject() {
     if (requestEvent) {
       const response = rejectEIP155Request(requestEvent)
-      await web3wallet.respondSessionRequest({
+      await signClient.respond({
         topic,
         response
       })
@@ -70,10 +70,10 @@ export default function SessionSignTypedDataModal() {
       </RequestModalContainer>
 
       <Modal.Footer>
-        <Button auto flat color="error" onPress={onReject}>
+        <Button auto flat color="error" onClick={onReject}>
           Reject
         </Button>
-        <Button auto flat color="success" onPress={onApprove}>
+        <Button auto flat color="success" onClick={onApprove}>
           Approve
         </Button>
       </Modal.Footer>

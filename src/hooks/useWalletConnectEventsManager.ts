@@ -1,14 +1,10 @@
 import { EIP155_SIGNING_METHODS } from '@/data/EIP155Data'
 import ModalStore from '@/store/ModalStore'
-import SettingsStore from '@/store/SettingsStore'
-import { web3wallet } from '@/utils/WalletConnectUtil'
+import { signClient } from '@/utils/WalletConnectUtil'
 import { SignClientTypes } from '@walletconnect/types'
 import { useCallback, useEffect } from 'react'
-import { useSnapshot } from 'valtio'
 
-export default function useWalletConnectEventsManager() {
-  const { web3WalletReady } = useSnapshot(SettingsStore.state)
-
+export default function useWalletConnectEventsManager(initialized: boolean) {
   /******************************************************************************
    * 1. Open session proposal modal for confirmation / rejection
    *****************************************************************************/
@@ -27,7 +23,7 @@ export default function useWalletConnectEventsManager() {
       console.log('session_request', requestEvent)
       const { topic, params } = requestEvent
       const { request } = params
-      const requestSession = web3wallet.getActiveSessions()[topic]
+      const requestSession = signClient.session.get(topic)
 
       switch (request.method) {
         case EIP155_SIGNING_METHODS.ETH_SIGN:
@@ -42,9 +38,6 @@ export default function useWalletConnectEventsManager() {
         case EIP155_SIGNING_METHODS.ETH_SEND_TRANSACTION:
         case EIP155_SIGNING_METHODS.ETH_SIGN_TRANSACTION:
           return ModalStore.open('SessionSendTransactionModal', { requestEvent, requestSession })
-
-        default:
-          return ModalStore.open('SessionUnsuportedMethodModal', { requestEvent, requestSession })
       }
     },
     []
@@ -54,18 +47,14 @@ export default function useWalletConnectEventsManager() {
    * Set up WalletConnect event listeners
    *****************************************************************************/
   useEffect(() => {
-    if (web3WalletReady) {
-      web3wallet.on('session_proposal', onSessionProposal)
-      web3wallet.on('session_request', onSessionRequest)
-      web3wallet.on('session_delete', data => console.log('delete', data))
+    if (initialized) {
+      signClient.on('session_proposal', onSessionProposal)
+      signClient.on('session_request', onSessionRequest)
+      // TODOs
+      signClient.on('session_ping', data => console.log('ping', data))
+      signClient.on('session_event', data => console.log('event', data))
+      signClient.on('session_update', data => console.log('update', data))
+      signClient.on('session_delete', data => console.log('delete', data))
     }
-
-    return () => {
-      if (web3WalletReady) {
-        web3wallet.off('session_proposal', onSessionProposal)
-        web3wallet.off('session_request', onSessionRequest)
-        web3wallet.off('session_delete', data => console.log('delete', data))
-      }
-    }
-  }, [web3WalletReady, onSessionProposal, onSessionRequest])
+  }, [initialized, onSessionProposal, onSessionRequest])
 }

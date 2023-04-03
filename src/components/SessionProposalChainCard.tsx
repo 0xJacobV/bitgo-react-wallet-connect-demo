@@ -1,5 +1,6 @@
 import ChainCard from '@/components/ChainCard'
 import { EIP155_MAINNET_CHAINS, EIP155_TEST_CHAINS } from '@/data/EIP155Data'
+
 import { formatChainName } from '@/utils/HelperUtil'
 import { Col, Row, Text } from '@nextui-org/react'
 import { ProposalTypes } from '@walletconnect/types'
@@ -10,7 +11,7 @@ import { Fragment } from 'react'
  */
 const CHAIN_METADATA = {
   ...EIP155_MAINNET_CHAINS,
-  ...EIP155_TEST_CHAINS
+  ...EIP155_TEST_CHAINS,
 }
 
 /**
@@ -26,7 +27,7 @@ interface IProps {
 export default function SessionProposalChainCard({ requiredNamespace }: IProps) {
   return (
     <Fragment>
-      {requiredNamespace?.chains?.map(chainId => {
+      {requiredNamespace.chains?.map(chainId => {
         // @ts-expect-error
         const rgb = CHAIN_METADATA[chainId]?.rgb
 
@@ -38,7 +39,7 @@ export default function SessionProposalChainCard({ requiredNamespace }: IProps) 
             <Row>
               <Col>
                 <Text h6>Methods</Text>
-                <Text color="$gray800">
+                <Text color="$gray300">
                   {requiredNamespace.methods.length ? requiredNamespace.methods.join(', ') : '-'}
                 </Text>
               </Col>
@@ -46,7 +47,7 @@ export default function SessionProposalChainCard({ requiredNamespace }: IProps) 
             <Row css={{ marginTop: '$5' }}>
               <Col>
                 <Text h6>Events</Text>
-                <Text color="$gray800">
+                <Text color="$gray300">
                   {requiredNamespace.events.length ? requiredNamespace.events.join(', ') : '-'}
                 </Text>
               </Col>

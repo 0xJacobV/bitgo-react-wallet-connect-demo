@@ -20,7 +20,9 @@ export default function SessionCard({ logo, name, url, topic }: IProps) {
   return (
     <NextLink href={topic ? `/session?topic=${topic}` : '#'} passHref>
       <Card
-        variant="bordered"
+        clickable
+        bordered
+        borderWeight="light"
         css={{
           position: 'relative',
           marginBottom: '$6',

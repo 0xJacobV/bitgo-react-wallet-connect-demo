@@ -1,7 +1,8 @@
-import { EIP155_SIGNING_METHODS } from '@/data/EIP155Data'
-import ModalStore from '@/store/ModalStore'
-import LegacySignClient from '@walletconnect/client'
 import { IWalletConnectSession } from '@walletconnect/legacy-types'
+import LegacySignClient from '@walletconnect/client'
+import ModalStore from '@/store/ModalStore'
+import { EIP155_SIGNING_METHODS } from '@/data/EIP155Data'
+import SettingsStore from '@/store/SettingsStore'
 
 export let legacySignClient: LegacySignClient
 
@@ -10,7 +11,15 @@ export function createLegacySignClient({ uri }: { uri?: string } = {}) {
   // otherwise fall back to cached session if client isn't already instantiated.
   if (uri) {
     deleteCachedLegacySession()
-    legacySignClient = new LegacySignClient({ uri })
+    legacySignClient = new LegacySignClient({
+      uri,
+      clientMeta: {
+        description: 'WalletConnect Developer App',
+        url: 'https://walletconnect.org',
+        icons: ['https://walletconnect.org/walletconnect-logo.png'],
+        name: 'WalletConnect'
+      }
+    })
   } else if (!legacySignClient && getCachedLegacySession()) {
     const session = getCachedLegacySession()
     legacySignClient = new LegacySignClient({ session })

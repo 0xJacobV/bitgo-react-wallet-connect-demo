@@ -23,17 +23,20 @@ export default function Layout({ children, initialized }: Props) {
       css={{
         width: '100vw',
         height: '100vh',
-        padding: 0
+        paddingLeft: 0,
+        paddingRight: 0
       }}
     >
       <Card
-        variant="bordered"
+        bordered={{ '@initial': false, '@xs': true }}
+        borderWeight={{ '@initial': 'light', '@xs': 'light' }}
         css={{
           height: '100%',
           width: '100%',
           justifyContent: initialized ? 'normal' : 'center',
           alignItems: initialized ? 'normal' : 'center',
           borderRadius: 0,
+          paddingBottom: 5,
           '@xs': {
             borderRadius: '$lg',
             height: '95vh',
@@ -47,11 +50,12 @@ export default function Layout({ children, initialized }: Props) {
               <Card.Body
                 css={{
                   display: 'block',
-                  padding: 10,
-                  paddingTop: 10,
+                  paddingLeft: 2,
+                  paddingRight: 2,
+                  paddingBottom: '40px',
                   '@xs': {
-                    padding: 40,
-                    paddingTop: 30
+                    padding: '20px',
+                    paddingBottom: '40px'
                   }
                 }}
               >
@@ -66,13 +70,11 @@ export default function Layout({ children, initialized }: Props) {
                 position: 'sticky',
                 justifyContent: 'flex-end',
                 alignItems: 'flex-end',
-                boxShadow: '0 -30px 20px #16181A',
-                backgroundColor: '#16181A',
+                boxShadow: '0 -30px 20px #111111',
+                backgroundColor: '#111111',
                 zIndex: 200,
-                inset: 0,
-                paddingLeft: 40,
-                paddingRight: 40,
-                paddingBottom: 30
+                bottom: 0,
+                left: 0
               }}
             >
               <Navigation />

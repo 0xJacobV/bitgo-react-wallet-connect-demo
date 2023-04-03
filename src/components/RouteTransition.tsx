@@ -16,7 +16,7 @@ export default function RouteTransition({ children }: IProps) {
   const { pathname } = useRouter()
 
   return (
-    <AnimatePresence mode="wait">
+    <AnimatePresence exitBeforeEnter>
       <motion.div
         className="routeTransition"
         key={pathname}

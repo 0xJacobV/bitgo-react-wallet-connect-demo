@@ -35,7 +35,7 @@ export default function SessionUnsuportedMethodModal() {
       </RequestModalContainer>
 
       <Modal.Footer>
-        <Button auto flat color="error" onPress={ModalStore.close}>
+        <Button auto flat color="error" onClick={ModalStore.close}>
           Close
         </Button>
       </Modal.Footer>

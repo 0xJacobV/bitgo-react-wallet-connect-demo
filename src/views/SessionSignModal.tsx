@@ -3,10 +3,9 @@ import RequesDetailsCard from '@/components/RequestDetalilsCard'
 import RequestMethodCard from '@/components/RequestMethodCard'
 import RequestModalContainer from '@/components/RequestModalContainer'
 import ModalStore from '@/store/ModalStore'
-// import { approveEIP155Request, rejectEIP155Request } from '@/utils/EIP155RequestHandlerUtil'
-import { approveEIP155Request, rejectEIP155Request } from '../utils/BitGoEIP155RequestHandlerUtils';
+import { approveEIP155Request, rejectEIP155Request } from '@/utils/EIP155RequestHandlerUtil'
 import { getSignParamsMessage } from '@/utils/HelperUtil'
-import { web3wallet } from '@/utils/WalletConnectUtil'
+import { signClient } from '@/utils/WalletConnectUtil'
 import { Button, Col, Divider, Modal, Row, Text } from '@nextui-org/react'
 import { Fragment } from 'react'
 
@@ -29,22 +28,12 @@ export default function SessionSignModal() {
 
   // Handle approve action (logic varies based on request method)
   async function onApprove() {
-    console.log('approved')
     if (requestEvent) {
-      console.log('requestEvent: ', requestEvent)
-      try {
-        const response = await approveEIP155Request(requestEvent)
-        console.log('response: ', response);
-        await web3wallet.respondSessionRequest({
-          topic,
-          response
-        })
-
-      } catch (e) {
-        console.log(e)
-      }
-
-
+      const response = await approveEIP155Request(requestEvent)
+      await signClient.respond({
+        topic,
+        response
+      })
       ModalStore.close()
     }
   }
@@ -53,7 +42,7 @@ export default function SessionSignModal() {
   async function onReject() {
     if (requestEvent) {
       const response = rejectEIP155Request(requestEvent)
-      await web3wallet.respondSessionRequest({
+      await signClient.respond({
         topic,
         response
       })
@@ -85,10 +74,10 @@ export default function SessionSignModal() {
       </RequestModalContainer>
 
       <Modal.Footer>
-        <Button auto flat color="error" onPress={onReject}>
+        <Button auto flat color="error" onClick={onReject}>
           Reject
         </Button>
-        <Button auto flat color="success" onPress={onApprove}>
+        <Button auto flat color="success" onClick={onApprove}>
           Approve
         </Button>
       </Modal.Footer>

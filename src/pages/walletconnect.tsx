@@ -1,9 +1,9 @@
+import { parseUri } from '@walletconnect/utils'
 import PageHeader from '@/components/PageHeader'
 import QrReader from '@/components/QrReader'
+import { signClient } from '@/utils/WalletConnectUtil'
 import { createLegacySignClient } from '@/utils/LegacyWalletConnectUtil'
-import { web3wallet } from '@/utils/WalletConnectUtil'
 import { Button, Input, Loading, Text } from '@nextui-org/react'
-import { parseUri } from '@walletconnect/utils'
 import { Fragment, useState } from 'react'
 
 export default function WalletConnectPage() {
@@ -19,8 +19,7 @@ export default function WalletConnectPage() {
       if (version === 1) {
         createLegacySignClient({ uri })
       } else {
-        console.log('about to pair');
-        await web3wallet.pair({ uri })
+        await signClient.pair({ uri })
       }
     } catch (err: unknown) {
       alert(err)
@@ -52,7 +51,7 @@ export default function WalletConnectPage() {
             size="xs"
             disabled={!uri}
             css={{ marginLeft: -60 }}
-            onPress={() => onConnect(uri)}
+            onClick={() => onConnect(uri)}
             color="gradient"
           >
             {loading ? <Loading size="sm" /> : 'Connect'}

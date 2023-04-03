@@ -1,5 +1,5 @@
-import { IClientMeta, IWalletConnectSession } from '@walletconnect/legacy-types'
 import { SessionTypes, SignClientTypes } from '@walletconnect/types'
+import { IClientMeta, IWalletConnectSession } from '@walletconnect/legacy-types'
 import { proxy } from 'valtio'
 
 /**
@@ -25,6 +25,13 @@ interface State {
     | 'SessionSignTypedDataModal'
     | 'SessionSendTransactionModal'
     | 'SessionUnsuportedMethodModal'
+    | 'SessionSignCosmosModal'
+    | 'SessionSignSolanaModal'
+    | 'SessionSignPolkadotModal'
+    | 'SessionSignNearModal'
+    | 'SessionSignElrondModal'
+    | 'SessionSignTronModal'
+    | 'SessionSignTezosModal'
     | 'LegacySessionProposalModal'
     | 'LegacySessionSignModal'
     | 'LegacySessionSignTypedDataModal'

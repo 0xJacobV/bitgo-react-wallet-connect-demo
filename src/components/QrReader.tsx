@@ -66,7 +66,7 @@ export default function QrReader({ onConnect }: IProps) {
           <Button
             color="gradient"
             css={{ marginTop: '$10', width: '100%' }}
-            onPress={onShowScanner}
+            onClick={onShowScanner}
           >
             Scan QR code
           </Button>

@@ -1,19 +1,17 @@
 import { REGIONALIZED_RELAYER_ENDPOINTS } from '@/data/RelayerRegions'
-import { useState } from 'react'
-import { core } from '../utils/WalletConnectUtil'
+import SettingsStore from '@/store/SettingsStore'
+import { useSnapshot } from 'valtio'
 
 export default function AccountPicker() {
-  const [region, setRegion] = useState('')
+  const { relayerRegionURL } = useSnapshot(SettingsStore.state)
 
-  async function onSelect(newRegion: string) {
-    await core.relayer.transportClose()
-    await core.relayer.transportOpen(newRegion)
-    setRegion(newRegion)
+  function onSelect(value: string) {
+    SettingsStore.setRelayerRegionURL(value)
   }
 
   return (
     <select
-      value={region}
+      value={relayerRegionURL}
       onChange={e => onSelect(e.currentTarget.value)}
       aria-label="relayerRegions"
     >

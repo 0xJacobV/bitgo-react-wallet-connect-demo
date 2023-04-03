@@ -1,5 +1,6 @@
 import ChainCard from '@/components/ChainCard'
 import { EIP155_MAINNET_CHAINS, EIP155_TEST_CHAINS } from '@/data/EIP155Data'
+
 import { formatChainName } from '@/utils/HelperUtil'
 import { Col, Row, Text } from '@nextui-org/react'
 import { SessionTypes } from '@walletconnect/types'
@@ -48,7 +49,7 @@ export default function SessionChainCard({ namespace }: IProps) {
             <Row>
               <Col>
                 <Text h6>Methods</Text>
-                <Text color="$gray800">
+                <Text color="$gray300">
                   {namespace.methods.length ? namespace.methods.join(', ') : '-'}
                 </Text>
               </Col>
@@ -56,7 +57,7 @@ export default function SessionChainCard({ namespace }: IProps) {
             <Row css={{ marginTop: '$5' }}>
               <Col>
                 <Text h6>Events</Text>
-                <Text color="$gray800">
+                <Text color="$gray300">
                   {namespace.events.length ? namespace.events.join(', ') : '-'}
                 </Text>
               </Col>

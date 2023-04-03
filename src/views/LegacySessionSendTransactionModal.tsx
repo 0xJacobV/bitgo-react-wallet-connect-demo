@@ -5,7 +5,6 @@ import RequestMethodCard from '@/components/RequestMethodCard'
 import RequestModalContainer from '@/components/RequestModalContainer'
 import ModalStore from '@/store/ModalStore'
 import { approveEIP155Request, rejectEIP155Request } from '@/utils/EIP155RequestHandlerUtil'
-// import { approveEIP155Request, rejectEIP155Request } from '../utils/BitGoEIP155RequestHandlerUtils';
 import { legacySignClient } from '@/utils/LegacyWalletConnectUtil'
 import { Button, Divider, Loading, Modal, Text } from '@nextui-org/react'
 import { Fragment, useState } from 'react'
@@ -85,10 +84,10 @@ export default function LegacySessionSendTransactionModal() {
       </RequestModalContainer>
 
       <Modal.Footer>
-        <Button auto flat color="error" onPress={onReject} disabled={loading}>
+        <Button auto flat color="error" onClick={onReject} disabled={loading}>
           Reject
         </Button>
-        <Button auto flat color="success" onPress={onApprove} disabled={loading}>
+        <Button auto flat color="success" onClick={onApprove} disabled={loading}>
           {loading ? <Loading size="sm" color="success" /> : 'Approve'}
         </Button>
       </Modal.Footer>

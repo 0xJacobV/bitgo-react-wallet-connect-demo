@@ -18,12 +18,8 @@ export default function SettingsPage() {
         Packages
       </Text>
       <Row justify="space-between" align="center">
-        <Text color="$gray400">@walletconnect/web3wallet</Text>
-        <Text color="$gray400">{packageJSON.dependencies['@walletconnect/web3wallet']}</Text>
-      </Row>
-      <Row justify="space-between" align="center">
-        <Text color="$gray400">@walletconnect/core</Text>
-        <Text color="$gray400">{packageJSON.dependencies['@walletconnect/core']}</Text>
+        <Text color="$gray400">@walletconnect/sign-client</Text>
+        <Text color="$gray400">{packageJSON.dependencies['@walletconnect/sign-client']}</Text>
       </Row>
       <Row justify="space-between" align="center">
         <Text color="$gray400">@walletconnect/utils</Text>
@@ -63,7 +59,7 @@ export default function SettingsPage() {
       <Text h4 css={{ marginTop: '$5', marginBottom: '$5' }}>
         EIP155 Mnemonic
       </Text>
-      <Card variant="bordered" css={{ minHeight: '100px', padding: 10 }}>
+      <Card bordered borderWeight="light" css={{ minHeight: '100px' }}>
         <Text css={{ fontFamily: '$mono' }}>{eip155Wallets[eip155Address].getMnemonic()}</Text>
       </Card>
     </Fragment>

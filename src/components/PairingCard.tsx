@@ -18,7 +18,7 @@ interface IProps {
 export default function PairingCard({ logo, name, url, onDelete }: IProps) {
   return (
     <Card
-      variant="bordered"
+      borderWeight="light"
       css={{
         position: 'relative',
         marginBottom: '$6',
@@ -43,7 +43,7 @@ export default function PairingCard({ logo, name, url, onDelete }: IProps) {
           </Link>
         </div>
         <Tooltip content="Delete" placement="left">
-          <Button size="sm" color="error" flat onPress={onDelete} css={{ minWidth: 'auto' }}>
+          <Button size="sm" color="error" flat onClick={onDelete} css={{ minWidth: 'auto' }}>
             <Image src={'/icons/delete-icon.svg'} width={15} height={15} alt="delete icon" />
           </Button>
         </Tooltip>

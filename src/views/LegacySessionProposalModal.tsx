@@ -26,25 +26,32 @@ export default function LegacySessionProposalModal() {
   const [{ chainId, peerMeta }] = params
 
   // Add / remove address from EIP155 selection
-  function onSelectAccount(chain: string, account: string) {
+  const onSelectAccount = (chain: string, account: string) => {
+    console.log('fired')
+    console.log(selectedAccounts)
     if (selectedAccounts[chain]?.includes(account)) {
+      console.log('includes')
       const newSelectedAccounts = selectedAccounts[chain]?.filter(a => a !== account)
       setSelectedAccounts(prev => ({
         ...prev,
         [chain]: newSelectedAccounts
       }))
     } else {
+      console.log('does not')
       const prevChainAddresses = selectedAccounts[chain] ?? []
       setSelectedAccounts(prev => ({
         ...prev,
         [chain]: [...prevChainAddresses, account]
       }))
     }
+    console.log(selectedAccounts)
   }
 
   // Hanlde approve action, construct session namespace
-  async function onApprove() {
+  const onApprove = () => {
+    console.log(proposal)
     if (proposal) {
+      console.log(selectedAccounts['eip155'])
       legacySignClient.approveSession({
         accounts: selectedAccounts['eip155'],
         chainId: chainId ?? 1
@@ -85,7 +92,7 @@ export default function LegacySessionProposalModal() {
       </RequestModalContainer>
 
       <Modal.Footer>
-        <Button auto flat color="error" onPress={onReject}>
+        <Button auto flat color="error" onClick={onReject}>
           Reject
         </Button>
 

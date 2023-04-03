@@ -1,16 +1,15 @@
 import PageHeader from '@/components/PageHeader'
 import SessionCard from '@/components/SessionCard'
 import { legacySignClient } from '@/utils/LegacyWalletConnectUtil'
-import { web3wallet } from '@/utils/WalletConnectUtil'
+import { signClient } from '@/utils/WalletConnectUtil'
 import { Text } from '@nextui-org/react'
-import { Fragment } from 'react'
+import { Fragment, useState } from 'react'
 
 export default function SessionsPage() {
-  const sessions = web3wallet.getActiveSessions()
-  const sessionTopics = Object.keys(sessions)
-  const legacySession = legacySignClient?.session
+  const [sessions, setSessions] = useState(signClient.session.values)
+  const [legacySession, setLegacySession] = useState(legacySignClient?.session)
 
-  if (!legacySession && !sessionTopics.length) {
+  if (!legacySession && !sessions.length) {
     return (
       <Fragment>
         <PageHeader title="Sessions" />
@@ -29,11 +28,19 @@ export default function SessionsPage() {
           logo={legacySession.peerMeta?.icons[0]}
         />
       ) : null}
-      {sessionTopics.length
-        ? sessionTopics.map(topic => {
-            const { name, icons, url } = sessions[topic].peer.metadata
+      {sessions.length
+        ? sessions.map(session => {
+            const { name, icons, url } = session.peer.metadata
 
-            return <SessionCard key={topic} topic={topic} name={name} logo={icons[0]} url={url} />
+            return (
+              <SessionCard
+                key={session.topic}
+                topic={session.topic}
+                name={name}
+                logo={icons[0]}
+                url={url}
+              />
+            )
           })
         : null}
     </Fragment>

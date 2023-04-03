@@ -5,7 +5,7 @@ import RequestMethodCard from '@/components/RequestMethodCard'
 import RequestModalContainer from '@/components/RequestModalContainer'
 import ModalStore from '@/store/ModalStore'
 import { approveEIP155Request, rejectEIP155Request } from '@/utils/EIP155RequestHandlerUtil'
-import { web3wallet } from '@/utils/WalletConnectUtil'
+import { signClient } from '@/utils/WalletConnectUtil'
 import { Button, Divider, Loading, Modal, Text } from '@nextui-org/react'
 import { Fragment, useState } from 'react'
 
@@ -32,7 +32,7 @@ export default function SessionSendTransactionModal() {
     if (requestEvent) {
       setLoading(true)
       const response = await approveEIP155Request(requestEvent)
-      await web3wallet.respondSessionRequest({
+      await signClient.respond({
         topic,
         response
       })
@@ -44,7 +44,7 @@ export default function SessionSendTransactionModal() {
   async function onReject() {
     if (requestEvent) {
       const response = rejectEIP155Request(requestEvent)
-      await web3wallet.respondSessionRequest({
+      await signClient.respond({
         topic,
         response
       })
@@ -71,10 +71,10 @@ export default function SessionSendTransactionModal() {
       </RequestModalContainer>
 
       <Modal.Footer>
-        <Button auto flat color="error" onPress={onReject} disabled={loading}>
+        <Button auto flat color="error" onClick={onReject} disabled={loading}>
           Reject
         </Button>
-        <Button auto flat color="success" onPress={onApprove} disabled={loading}>
+        <Button auto flat color="success" onClick={onApprove} disabled={loading}>
           {loading ? <Loading size="sm" color="success" /> : 'Approve'}
         </Button>
       </Modal.Footer>

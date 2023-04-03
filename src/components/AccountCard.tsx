@@ -24,7 +24,7 @@ export default function AccountCard({ name, logo, rgb, address }: Props) {
     <ChainCard rgb={rgb} flexDirection="row" alignItems="center">
       <Avatar src={logo} />
       <div style={{ flex: 1 }}>
-        <Text h5 css={{ marginLeft: '$9', marginBottom: 0 }}>
+        <Text h5 css={{ marginLeft: '$9' }}>
           {name}
         </Text>
         <Text weight="light" size={13} css={{ marginLeft: '$9' }}>
@@ -36,7 +36,7 @@ export default function AccountCard({ name, logo, rgb, address }: Props) {
         <Button
           size="sm"
           css={{ minWidth: 'auto', backgroundColor: 'rgba(255, 255, 255, 0.15)' }}
-          onPress={onCopy}
+          onClick={onCopy}
         >
           <Image
             src={copied ? '/icons/checkmark-icon.svg' : '/icons/copy-icon.svg'}
