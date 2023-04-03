@@ -1,4 +1,5 @@
 import { Col, Divider, Row, Text } from '@nextui-org/react'
+import { useSession } from 'next-auth/react'
 import { Fragment, ReactNode } from 'react'
 
 /**
@@ -13,6 +14,7 @@ interface Props {
  * Component
  */
 export default function PageHeader({ title, children }: Props) {
+  const { data } = useSession()
   return (
     <Fragment>
       <Row css={{ marginBottom: '$5', width: '100%' }} justify="space-between" align="center">
@@ -29,7 +31,6 @@ export default function PageHeader({ title, children }: Props) {
         </Col>
         {children ? <Col css={{ flex: 1 }}>{children}</Col> : null}
       </Row>
-
       <Divider css={{ marginBottom: '$10' }} />
     </Fragment>
   )

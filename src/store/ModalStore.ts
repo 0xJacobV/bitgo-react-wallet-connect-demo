@@ -36,6 +36,7 @@ interface State {
     | 'LegacySessionSignModal'
     | 'LegacySessionSignTypedDataModal'
     | 'LegacySessionSendTransactionModal'
+    | 'ImportWalletsModal'
   data?: ModalData
 }
 

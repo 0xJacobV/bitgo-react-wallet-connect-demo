@@ -12,6 +12,7 @@ export default function Signin() {
       console.log(status)
       void signIn('bitgo')
     } else if (status === 'authenticated') {
+      console.log('authed')
       void router.push('/')
     }
   }, [status])

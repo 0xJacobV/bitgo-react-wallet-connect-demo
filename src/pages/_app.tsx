@@ -2,13 +2,15 @@ import Layout from '@/components/Layout'
 import Modal from '@/components/Modal'
 import useInitialization from '@/hooks/useInitialization'
 import useWalletConnectEventsManager from '@/hooks/useWalletConnectEventsManager'
+import { initBitGo } from '@/utils/BitGo'
 import { createLegacySignClient } from '@/utils/LegacyWalletConnectUtil'
-import SettingsStore from '@/store/SettingsStore'
 import { createTheme, NextUIProvider } from '@nextui-org/react'
+import { SessionProvider } from 'next-auth/react'
+
 import { AppProps } from 'next/app'
 import '../../public/main.css'
 
-export default function App({ Component, pageProps }: AppProps) {
+export default function App({ Component, pageProps: { session, ...pageProps } }: AppProps) {
   // Step 1 - Initialize wallets and wallet connect client
   const initialized = useInitialization()
 
@@ -18,12 +20,16 @@ export default function App({ Component, pageProps }: AppProps) {
   // Backwards compatibility only - create a legacy v1 SignClient instance.
   createLegacySignClient()
 
+  initBitGo()
+
   return (
-    <NextUIProvider theme={createTheme({ type: 'dark' })}>
-      <Layout initialized={initialized}>
-        <Component {...pageProps} />
-      </Layout>
-      <Modal />
-    </NextUIProvider>
+    <SessionProvider session={session}>
+      <NextUIProvider theme={createTheme({ type: 'dark' })}>
+        <Layout initialized={initialized}>
+          <Component {...pageProps} />
+        </Layout>
+        <Modal />
+      </NextUIProvider>
+    </SessionProvider>
   )
 }
